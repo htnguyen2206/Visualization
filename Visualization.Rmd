@@ -1,0 +1,41 @@
+---
+title: "Visualization"
+author: "Thi Huyen Nguyen"
+date: "11/22/2021"
+output: 
+  html_document:
+    theme:
+      bootswath: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(bslib)
+library(utils)
+library(dbplyr)
+library(lubridate)
+```
+
+# reading the csv file
+```{r presidential_polls, include=TRUE}
+president <- readr::read_csv("https://projects.fivethirtyeight.com/2020-general-data/presidential_state_toplines_2020.csv", show_col_types=FALSE)
+```
+
+# filtering the state = Wisconsin
+```{r, include=FALSE}
+president_adj = filter(president, state=="Wisconsin")
+```
+
+# Plotting the poll % of Trump win in Wisconsin
+```{r, include=TRUE}
+ggplot(data = president_adj) + geom_point(aes(x=modeldate,y=winstate_inc))
+```
+# Plotting the poll % of Biden win in Wisconsin
+```{r, include=TRUE}
+ggplot(data = president_adj) + geom_point(aes(x=modeldate,y=winstate_chal))
+```
